@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Computer science student portfolio">
+  <title>Jason Guevara | Computer Science Student</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --surface: rgba(255, 255, 255, 0.82);
+      --surface-solid: #ffffff;
+      --ink: #101828;
+      --muted: #667085;
+      --line: #e4e7ec;
+      --navy: #0b1730;
+      --navy-2: #12264b;
+      --accent: #4f6df5;
+      --accent-2: #73a8ff;
+      --accent-soft: #edf2ff;
+      --shadow-sm: 0 10px 30px rgba(16, 24, 40, 0.06);
+      --shadow-lg: 0 24px 60px rgba(16, 24, 40, 0.12);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+      --sans: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --display: "Space Grotesk", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 92px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 85% 8%, rgba(79, 109, 245, 0.08), transparent 24rem),
+        radial-gradient(circle at 5% 35%, rgba(115, 168, 255, 0.06), transparent 22rem),
+        var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.45;
+      background-image:
+        linear-gradient(rgba(16, 24, 40, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 24, 40, 0.025) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: linear-gradient(to bottom, black, transparent 72%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus-visible {
+      outline: 3px solid var(--accent-2);
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* Top navigation */
+    .topbar {
+      position: sticky;
+      top: 16px;
+      z-index: 20;
+      padding-top: 16px;
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 64px;
+      padding: 10px 14px 10px 18px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(228, 231, 236, 0.92);
+      border-radius: 18px;
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--display);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: linear-gradient(145deg, var(--accent), #3451d7);
+      border-radius: 10px;
+      font-size: 0.82rem;
+      box-shadow: 0 8px 18px rgba(79, 109, 245, 0.25);
+    }
+
+    nav ul {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 0 14px;
+      color: var(--muted);
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: 180ms ease;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      color: var(--ink);
+      background: var(--accent-soft);
+      outline: none;
+    }
+
+    .topbar-contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-radius: 11px;
+      background: var(--navy);
+      color: #fff;
+      font-size: 0.86rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .topbar-contact:hover {
+      transform: translateY(-1px);
+      background: #172d55;
+    }
+
+    /* Hero */
+    header {
+      position: relative;
+      padding: 92px 0 74px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: clamp(36px, 6vw, 84px);
+      align-items: center;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 30px;
+      height: 2px;
+      border-radius: 99px;
+      background: var(--accent);
+    }
+
+    header h1 {
+      margin: 0;
+      max-width: 12ch;
+      font-family: var(--display);
+      font-size: clamp(3.3rem, 7vw, 6.4rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      color: var(--navy);
+    }
+
+    .role {
+      margin: 22px 0 0;
+      max-width: 54ch;
+      color: var(--muted);
+      font-size: clamp(1.03rem, 1.5vw, 1.18rem);
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--ink);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: 180ms ease;
+    }
+
+    .hero-link:hover {
+      transform: translateY(-2px);
+      border-color: #c9d2ff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-link.primary {
+      border-color: var(--navy);
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 430px;
+      display: grid;
+      place-items: center;
+    }
+
+    .photo-frame {
+      position: relative;
+      width: min(360px, 74vw);
+      aspect-ratio: 0.92;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 34px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
+        linear-gradient(145deg, var(--navy), #1a3564);
+      box-shadow: var(--shadow-lg);
+      transform: rotate(2.2deg);
+    }
+
+    .photo-frame::before,
+    .photo-frame::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(2px);
+    }
+
+    .photo-frame::before {
+      width: 180px;
+      height: 180px;
+      top: -35px;
+      right: -22px;
+      background: rgba(115, 168, 255, 0.28);
+    }
+
+    .photo-frame::after {
+      width: 150px;
+      height: 150px;
+      bottom: -40px;
+      left: -28px;
+      background: rgba(79, 109, 245, 0.28);
+    }
+
+    .photo {
+      width: 68%;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px dashed rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.74);
+      text-align: center;
+      padding: 24px;
+      font-size: 0.86rem;
+      line-height: 1.45;
+      transform: rotate(-2.2deg);
+      position: relative;
+      z-index: 1;
+    }
+
+    .floating-card {
+      position: absolute;
+      right: 0;
+      bottom: 34px;
+      width: min(250px, 62vw);
+      padding: 18px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(228,231,236,0.9);
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(16px);
+    }
+
+    .floating-card .tiny {
+      margin: 0 0 5px;
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .floating-card strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 1.08rem;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-row {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .contact-row a {
+      color: var(--muted);
+      font-size: 0.84rem;
+      text-decoration: underline;
+      text-decoration-color: #d0d5dd;
+      text-underline-offset: 3px;
+    }
+
+    /* Main sections */
+    main {
+      padding: 16px 0 84px;
+    }
+
+    section {
+      margin-bottom: 108px;
+      scroll-margin-top: 92px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .section-kicker {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: var(--display);
+      color: var(--navy);
+      font-size: clamp(2.1rem, 4vw, 3.35rem);
+      line-height: 1.05;
+      letter-spacing: -0.05em;
+    }
+
+    .section-note {
+      max-width: 40ch;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: right;
+    }
+
+    /* Biography */
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 18px;
+    }
+
+    .panel {
+      padding: 28px;
+      background: var(--surface);
+      border: 1px solid rgba(228,231,236,0.92);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(12px);
+    }
+
+    .panel.accent {
+      background: linear-gradient(145deg, var(--navy), var(--navy-2));
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .card-label {
+      margin: 0 0 9px;
+      color: var(--accent);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .accent .card-label { color: #9cb9ff; }
+
+    .panel h3 {
+      margin: 0 0 12px;
+      font-family: var(--display);
+      font-size: 1.35rem;
+      letter-spacing: -0.025em;
+    }
+
+    .panel p:last-child {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .accent p:last-child { color: rgba(255,255,255,0.72); }
+
+    /* Goals */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      position: relative;
+      min-height: 250px;
+      padding: 24px;
+      background: var(--surface-solid);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 18px rgba(16,24,40,0.035);
+      overflow: hidden;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      right: -34px;
+      top: -34px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #cbd5f8;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-number {
+      position: relative;
+      z-index: 1;
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 24px;
+      border-radius: 11px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-family: var(--display);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .card .label {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .card h3 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 10px;
+      font-family: var(--display);
+      font-size: 1.22rem;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
+
+    .card p:last-child {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    /* Success timeline */
+    .success-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .success-item {
+      display: grid;
+      grid-template-columns: 86px 1fr auto;
+      gap: 20px;
+      align-items: center;
+      padding: 22px 24px;
+      background: rgba(255,255,255,0.84);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 18px rgba(16,24,40,0.035);
+      transition: 180ms ease;
+    }
+
+    .success-item:hover {
+      transform: translateX(4px);
+      border-color: #cbd5f8;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .year {
+      color: var(--accent);
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .success-copy h3 {
+      margin: 0 0 4px;
+      font-family: var(--display);
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .success-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .arrow {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 0 0 44px;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 26px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .footer-inner strong {
+      color: var(--ink);
+      font-family: var(--display);
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .bio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 360px;
+      }
+
+      header h1 {
+        max-width: 14ch;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: unset;
+      }
+
+      .section-note {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .topbar {
+        top: 10px;
+        padding-top: 10px;
+      }
+
+      .topbar-inner {
+        padding: 9px 10px 9px 13px;
+      }
+
+      .brand span:last-child,
+      .topbar-contact {
+        display: none;
+      }
+
+      nav ul { gap: 2px; }
+
+      nav a {
+        padding: 0 9px;
+        font-size: 0.81rem;
+      }
+
+      header {
+        padding: 68px 0 55px;
+      }
+
+      .hero-visual {
+        min-height: 330px;
+      }
+
+      .photo-frame {
+        width: min(310px, 76vw);
+      }
+
+      .floating-card {
+        right: 2%;
+        bottom: 10px;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-note {
+        margin-top: 12px;
+      }
+
+      section {
+        margin-bottom: 80px;
+      }
+
+      .success-item {
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+      }
+
+      .year {
+        grid-column: 1 / -1;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="shell">
+      <div class="topbar-inner">
+        <a class="brand" href="#" aria-label="Home">
+          <span class="brand-mark">CS</span>
+          <span>Jason Guevara</span>
+        </a>
+
+        <nav aria-label="Page sections">
+          <ul>
+            <li><a href="#about">Biography</a></li>
+            <li><a href="#goals">Goals</a></li>
+            <li><a href="#successes">Successes</a></li>
+          </ul>
+        </nav>
+
+        <a class="topbar-contact" href="mailto:your.jeg5746@eid.utexas.edu">Get in touch ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="shell hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Computer Science Student</div>
+        <h1>Jason Guevara</h1>
+        <p class="role">Computer Science Student, Class of 2030 at the University of Texas at Austin</p>
+
+        <div class="hero-links">
+          <a class="hero-link primary" href="#about">Explore my story ↓</a>
+          <a class="hero-link" href="mailto:your.jeg5746@eid.utexas.edu">Email me ↗</a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Profile area">
+        <div class="photo-frame">
+          <div class="photo" role="img" aria-label="Photo placeholder">Professional photo not yet taken</div>
+        </div>
+
+        <div class="floating-card">
+          <p class="tiny">Currently focused on</p>
+          <strong>Learning and building my community at UT Austin.</strong>
+          <div class="contact-row">
+            <a href="#">[GitHub In Progress]</a>
+            <a href="https://www.linkedin.com/in/jason-guevara-reyes-264bb1390">[LinkedIn]</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section id="about">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">00 / About</p>
+          <h2>Biography</h2>
+        </div>
+        <p class="section-note">A snapshot of where I come from, what I enjoy doing, and what keeps me curious.</p>
+      </div>
+
+      <div class="bio-grid">
+        <article class="panel accent">
+          <h3>Introduction</h3>
+          <p>I am a Computer Science student at the University of Texas at Austin. I am passionate about learning all about technology. Specifically, I enjoy the topics of Machine Learning and Cybersecurity. I am originally from the Dallas area and have lived there my whole life. Ever since I was a child, I fell in love with mathematics and problem solving, two things that fuel my curiosity in the field even today. I am excited to begin a new chapter in my life to explore my interests in computer science and develop my professional skills.</p>
+        </article>
+
+        <article class="panel">
+          <h3>Life as a Student</h3>
+          <p>Currently, I am taking two CS courses and I am also a member of a variety of clubs relating to computer science such as ISSS, HACS, and ACM. While I spend a lot of time doing homework and studying, I try to balance my workload with these clubs' events and spending time with friends. Next semester, I hope to attend more career and networking events in hopes of landing an internship.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="goals">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">01 / Direction</p>
+          <h2>Goals</h2>
+        </div>
+        <p class="section-note">The next steps for improving myself as a computer science student.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <div class="card-number">01</div>
+          <h3>Get Good Grades</h3>
+          <p>I hope to maintain a strong academic standing my first year at UT. Although I usually strive for a 4.0 GPA, I am aware of the other important activities I should be doing to keep myself sane and get experience in CS. Still, I would like to maintain at least a 3.5 GPA in my freshman year and pay attention in my classes to develop a strong grasp of the fundamentals.</p>
+        </article>
+
+        <article class="card">
+          <div class="card-number">02</div>
+          <h3>Create a Big Project</h3>
+          <p>I already have a plan for my next big project, but I am yet to find the time to start working on it. I doubt I will have a good amount of time to work on it right now, but I hope to finish it before the end of the coming summer.</p>
+        </article>
+
+        <article class="card">
+          <div class="card-number">03</div>
+          <h3>Get an Internship</h3>
+          <p>I hope to eventually gain real world experience through an internship opportunity. My timeframe for this goal is at the latest the summer of my sophomore year, but I hope to be able to develop enough knowledge, skills, and practice to secure a position this upcoming summer.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="successes">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">02 / Highlights</p>
+          <h2>Successes</h2>
+        </div>
+        <p class="section-note">A simple record of projects, achievements, and moments worth remembering. (I don't know what I should put here right now)</p>
+      </div>
+
+      <div class="success-list">
+        <article class="success-item">
+          <div class="year">2026</div>
+          <div class="success-copy">
+            <h3>I passed my CS314 Exam</h3>
+            <p>I spent a good amount of time studying for this and I achieved a result I'm happy with.</p>
+          </div>
+          <div class="arrow">↗</div>
+        </article>
+
+        <article class="success-item">
+          <div class="year">2026</div>
+          <div class="success-copy">
+            <h3>I have made a couple of new friends in CS</h3>
+            <p>Throughout my classes, I have been able to talk to many people with similar interests to me and have made a couple of friends in my classes as well.</p>
+          </div>
+          <div class="arrow">↗</div>
+        </article>
+
+        <article class="success-item">
+          <div class="year">2026</div>
+          <div class="success-copy">
+            <h3>I took my CS311 Exam Yesterday</h3>
+            <p>Again, I spent a while studying and although I don't yet know the result, it felt good to have my second midterm completed.</p>
+          </div>
+          <div class="arrow">↗</div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <span>© 2026 <strong>Jason Guevara</strong></span>
+    </div>
+  </footer>
+</body>
+</html>
